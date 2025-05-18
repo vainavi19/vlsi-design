@@ -25,7 +25,8 @@ A Buffer Register is constructed using D-FlipFlops.
 
 ## FSM
 An FSM (Finite State Machine) is a mathematical model used to design sequential logic circuits. It consists of a finite number of states, transitions between those states, inputs, and outputs. The current state and input determine the next state and output.
-Types of FSMs:
+
+### Types of FSMs:
 **Moore Machine**:
 Output depends only on the current state.
 Output is associated with the state itself.
@@ -35,3 +36,24 @@ Output depends on both the current state and the input.
 More responsive since the output can change immediately based on the input.
 
 ## FPGA design flow:
+A Field Programmable Gate Array, or FPGA, is a semiconductor device that comprises of logic blocks which are programmed to execute a specific set of functions. These programmable logic blocks are connected to each other with the help of an interconnect matrix. A logic block itself is composed of a look up table or LUT and a flip flop or FF and a multiplexer.
+
+
+1.Design Entry: 
+Write the design using HDL (like Verilog/VHDL) or schematics. HDL is faster for complex designs; schematics are easier for small projects.
+
+2.Synthesis: 
+Convert HDL code into a netlist of logic gates and flip-flops. Tools like Cadence and Synopsys are used for synthesis.
+
+3.Implementation:
+Collect netlist and constraints (timing, pin locations).
+Assign logic blocks to FPGA resources.
+Connect logic blocks and I/O as per constraints.
+
+4.Device Programming: 
+Generate a Bitstream file and load it onto the FPGA.
+
+5.FPGA Verification & Simulation:
+Behavioral Simulation: Test logic without timing (before synthesis).
+Functional Simulation: Verify logic and structure (after synthesis).
+Timing Simulation: Check design with timing delays (after implementation).
