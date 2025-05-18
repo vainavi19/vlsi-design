@@ -34,3 +34,4 @@ Output is associated with the state itself.
 Output depends on both the current state and the input.
 More responsive since the output can change immediately based on the input.
 
+## FPGA design flow:
