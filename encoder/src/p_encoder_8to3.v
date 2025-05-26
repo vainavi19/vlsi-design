@@ -131,6 +131,5 @@ assign e = (in[7] ==1'b1 ) ? 3'b111:
 (in[1] ==1'b1) ? 3'b001:
 (in[0] ==1'b1) ? 3'b000: 3'bxxx;
 endmodule
-/////////////////////////////////////////////////////
-//8-to-3 encooder - gate level modelling 
+
   
