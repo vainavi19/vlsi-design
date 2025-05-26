@@ -18,6 +18,7 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
+
 //8-to-3 encoder - behavioral modelling 
 module encoder_8to3 (
 input [7:0] in,
@@ -25,7 +26,7 @@ output reg [2:0] e
 );
 
 always @(in) begin
-casex(in)
+case(in)
 8'b00000001: e=3'b000;
 8'b00000010: e=3'b001;
 8'b00000100: e=3'b010;
@@ -47,10 +48,16 @@ input [7:0] in,
 output [2:0] e
 );
 
-assign e[0]=in[1] | in[3] | in[5] | in[7];
-assign e[1]=in[2] | in[3] | in[6] | in[7];
-assign e[2]=in[4] | in[5] | in[6] | in[7];
+assign e = (in[7] ==1'b1 ) ? 3'b111:
+(in[6] ==1'b1 ) ? 3'b110:
+(in[5] ==1'b1 ) ? 3'b101:
+(in[4] ==1'b1) ? 3'b100:
+(in[3] ==1'b1) ? 3'b011:
+(in[2] ==1'b1) ? 3'b010:
+(in[1] ==1'b1) ? 3'b001:
+(in[0] ==1'b1) ? 3'b000: 3'bxxx;
 endmodule
+
 /////////////////////////////////////////////////////
 //8-to-3 encooder - gate level modelling 
 module encoder_8to3(
@@ -63,3 +70,4 @@ or g1(e[0],in[1],in[3],in[5],in[7]);
 or g2(e[1],in[2],in[3],in[6],in[7]);
 or g3(e[2],in[4],in[5],in[6],in[7]);
 endmodule
+
