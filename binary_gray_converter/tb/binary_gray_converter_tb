@@ -1,0 +1,40 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 23.05.2025 12:32:50
+// Design Name: 
+// Module Name: code_converter_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module code_converter_tb;
+reg [3:0]in;
+wire [3:0]out;
+
+code_converter dut( .in(in), .out(out));
+
+initial begin 
+
+$monitor("in=%b, out=%b",in,out);
+in=4'b0011;
+#10;
+in=4'b0010;
+#10;
+in=4'b0110;
+#10;
+
+end
+endmodule
