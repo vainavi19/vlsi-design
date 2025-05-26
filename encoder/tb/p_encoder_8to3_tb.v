@@ -20,16 +20,16 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module encoder_8to3_tb;
+module p_encoder_3to8_tb;
 reg [0:7] in;
 wire [0:2] e;
 wire v;
 
 
-encoder_8to3 dut(
+p_encoder_8to3 dut(
 .in(in), //.module(tb)
-.e(e),
-.v(v)
+.e(e)
+//.v(v)
 );
 
 integer k;
