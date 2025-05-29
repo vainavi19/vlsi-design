@@ -23,10 +23,10 @@
 module seq_detector_tb;
 reg clk, rst;
 reg in;
-wire out;
-wire [1:0]cstate, nstate;
+wire out_mo, out_me;
+wire [1:0]cstate, nstate, cstate1, nstate1;
 
-seq_detector dut (.clk(clk), .rst(rst), .in(in), .out(out), .cstate(cstate),  .nstate(nstate));
+seq_detector dut (.clk(clk), .rst(rst), .in(in), .out_mo(out_mo), .out_me(out_me), .cstate(cstate),  .nstate(nstate), .cstate1(cstate1),  .nstate1(nstate1));
 
 //clock
 initial begin
@@ -35,7 +35,7 @@ forever #5 clk=~clk;
 end 
 
 initial begin 
-$monitor("cstate=%3b, nstate=%3b,in=%1b,out=%1b",cstate,nstate,in,out);
+$monitor("cstate=%3b, nstate=%3b,in=%1b,out_mo=%1b,out_me=%1b",cstate,nstate,in,out_mo,out_me);
 in=1'b0;
 rst=1; #20;
 
