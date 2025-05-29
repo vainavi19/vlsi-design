@@ -22,39 +22,15 @@
 // "110" - overlapping sequence detector 
 module seq_detector(
 input clk, rst,
-input in1, in0,
-output reg out
-//output reg [1:0] cstate, nstate
+input in,
+output reg out_mo, out_me,
+output reg [1:0] cstate, nstate, cstate1, nstate1
 );
 
-//clock divider 
-parameter MAX_COUNT = 49_000_000; // 50 million
-reg [26:0] counter;
-reg clk_1hz;
-
-//reg rst;    
-always @(posedge clk) 
-   begin
-        if (rst) begin
-            counter <= 0;
-            clk_1hz <= 0;
-        end else begin
-            if (counter == MAX_COUNT) begin
-                clk_1hz <= ~clk_1hz;  // toggle output every 50 million clocks (0.5s)
-                counter <= 0;
-            end
-             else begin
-                counter <= counter + 1;
-                
-            end
-        end
-    end
-    
-
 //moore machine 
- reg [1:0] cstate, nstate;
+ //reg [1:0] cstate, nstate;
 //present state - sequential + uses non-blocking assignment 
-always @(posedge clk_1hz) begin
+always @(posedge clk) begin
 if (rst) begin
 cstate<= 2'b00;
 end 
@@ -66,45 +42,95 @@ end
 always @(*) 
 begin
 nstate=2'b00;
-out=1'b0;
+out_mo=1'b0;
 case (cstate)
  2'b00: // S0
  begin
- out= 1'b0; 
- if (in1)  
+ out_mo= 1'b0; 
+ if (in)  
  nstate=2'b01; 
- else if (in0)
+ else
  nstate=2'b00; 
  end
  
  2'b01: // S1
  begin 
- out= 1'b0;
- if (in1)  
+ out_mo= 1'b0;
+ if (in)  
  nstate=2'b10; 
- else  if (in0)
+ else
  nstate=2'b00; 
  end
  
   2'b10: // S2
  begin 
- out= 1'b0;
- if (in1)  
+ out_mo= 1'b0;
+ if (in)  
  nstate=2'b10; 
- else  if (in0)
+ else  
  nstate=2'b11; 
  end
  
  2'b11: // S3
  begin 
- out= 1'b1;
- if (in1) 
+ out_mo= 1'b1;
+ if (in) 
  nstate=2'b01; 
- else if (in0) 
+ else
  nstate=2'b00; 
  end
  
 endcase
+end
+
+
+
+//mealy machine
+always @(posedge clk) begin
+if (rst) begin
+cstate1<= 2'b00;
+end 
+else 
+cstate1<= nstate1;
+end
+
+always @(*) 
+begin
+nstate1=2'b00;
+out_me=1'b0;
+
+case (cstate1)
+ 2'b00: // S0
+ begin
+ out_me= 1'b0; 
+ if (in)  
+ nstate1=2'b01; 
+ else
+ nstate1=2'b00; 
+ end
+ 
+ 2'b01: // S1
+ begin 
+ out_me= 1'b0;
+ if (in)  
+ nstate1=2'b10; 
+ else 
+ nstate1=2'b00; 
+ end
+ 
+  2'b10: // S2
+ begin 
+ if (in)  begin 
+ nstate1=2'b10; 
+ out_me=1'b0;
+ end 
+ else begin 
+ nstate1=2'b00; 
+ out_me=1'b1;
+ end
+ end 
+endcase
+
 end
 
 endmodule
