@@ -1,0 +1,26 @@
+module mux_8by1(
+    input wire [7:0] in, //in[15] -> MSB
+    input wire [2:0] s,
+    output wire out 
+);
+
+wire [3:0]stage, stage2;
+
+mux2by1 stage11 ( in[1:0], s[0], stage[0]);
+mux2by1 stage12 ( in[3:2], s[0], stage[1]);
+mux2by1 stage13 ( in[5:4], s[0], stage[2]);
+mux2by1 stage14 ( in[7:6], s[0], stage[3]);
+
+mux2by1 stage21 ( stage[1:0], s[1], stage2[0]);
+mux2by1 stage22 ( stage[3:2], s[1], stage2[1]);
+
+mux2by1 stage3 ( stage2[1:0], s[2], out);
+
+endmodule
+
+
+// 2by1 mux module 
+module mux2by1 ( input [1:0]in, input sel, output out);
+assign out= in[sel];
+
+endmodule
