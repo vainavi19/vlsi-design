@@ -1,0 +1,29 @@
+module mux_8by1_tb;
+    reg [15:0] in;
+    reg [3:0] s;
+
+    wire out;
+
+    mux_8by1 uut (
+        .in(in), 
+        .s(s), 
+        .out(out)
+    );
+
+    integer i;
+
+    initial begin
+        // Apply test cases
+        for (i = 0; i < 8; i = i + 1) begin
+            s = i;
+            in = 8'b11001100;
+            #5;
+        end
+
+        #10 $finish;
+    end
+
+    // Monitor output
+    initial begin
+        $monitor("Time = %0d | s = %4b | in = %b | out = %b", $time, s, in, out);
+    end
