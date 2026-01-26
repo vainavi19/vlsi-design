@@ -10,6 +10,9 @@ AES 128-bit deals with blocks of size 12b-bits only.
 - used to randomasize the encryptionn, providing distinct ciphertexts for the same plaintext.
 - must not be re-used i.e IV must be random/pseudorandom (statistically random).
 
+#### Padding
+simplest scheme - add null bytes to the plaintext to bring its length up to a multiple of the block size
+
 
 ## Block cipher modes of operation
 
