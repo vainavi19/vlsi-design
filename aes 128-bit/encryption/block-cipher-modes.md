@@ -38,7 +38,7 @@ These modes
 - allow additional data to be authenticated if not encrypted.
 
 ### AES-GCM:
-
+(Advanced Encryption Standard with Galois/Counter Mode)
 
 
 
